@@ -638,8 +638,9 @@
     function ok() {
       document.querySelectorAll('.em').forEach(e=>e.style.display='none');
       if (S.step===1) {
-        S.origen  = document.getElementById('iO').value.trim();
-        S.destino = document.getElementById('iD').value.trim();
+        // origen/destino se capturan via AC listeners, pero fallback al input si algo se escribió
+        if (!S.origen) S.origen = document.getElementById('iO').value.trim();
+        if (!S.destino) S.destino = document.getElementById('iD').value.trim();
         if (!S.origen||!S.destino){document.getElementById('e1').style.display='block';return false;}
       }
       if (S.step===2 && !S.hogar){document.getElementById('e2').style.display='block';return false;}
@@ -730,35 +731,48 @@ Por favor contáctenme para confirmar. ¡Gracias!`);
     ui();
   </script>
   <script>
-    function initAutocomplete() {
-      const opts = {
-        componentRestrictions: { country: 'mx' },
-        fields: ['formatted_address'],
-        types: ['geocode', 'establishment']
-      };
+    async function initAutocomplete() {
+      const { PlaceAutocompleteElement } = await google.maps.importLibrary('places');
 
-      const acO = new google.maps.places.Autocomplete(document.getElementById('iO'), opts);
-      const acD = new google.maps.places.Autocomplete(document.getElementById('iD'), opts);
+      function mountAC(inputId, onSelect) {
+        const input = document.getElementById(inputId);
+        const wrapper = input.parentElement;
 
-      // Evitar que Enter en el autocomplete avance el formulario
-      document.getElementById('iO').addEventListener('keydown', e => { if(e.key==='Enter') e.preventDefault(); });
-      document.getElementById('iD').addEventListener('keydown', e => { if(e.key==='Enter') e.preventDefault(); });
+        // Wrap input so we can inject the AC element alongside it
+        const ac = new PlaceAutocompleteElement({
+          componentRestrictions: { country: 'mx' },
+          types: ['geocode', 'establishment']
+        });
 
-      acO.addListener('place_changed', () => {
-        const p = acO.getPlace();
-        if (p.formatted_address) {
-          document.getElementById('iO').value = p.formatted_address;
-          S.origen = p.formatted_address;
-        }
-      });
+        // Style the AC element to overlay/replace the input visually
+        ac.style.cssText = `
+          position:absolute; top:0; left:0; right:0; bottom:0;
+          --gmp-mat-input-border-radius: 11px;
+          --gmp-mat-input-background-color: rgba(255,249,245,0.05);
+          --gmp-mat-input-color: #FFF9F5;
+          --gmp-mat-input-font-family: 'DM Sans', sans-serif;
+          --gmp-mat-input-font-size: 15px;
+          width:100%;
+        `;
 
-      acD.addListener('place_changed', () => {
-        const p = acD.getPlace();
-        if (p.formatted_address) {
-          document.getElementById('iD').value = p.formatted_address;
-          S.destino = p.formatted_address;
-        }
-      });
+        wrapper.style.position = 'relative';
+        input.style.display = 'none'; // hide original input
+        wrapper.appendChild(ac);
+
+        ac.addEventListener('gmp-placeselect', async ({ place }) => {
+          await place.fetchFields({ fields: ['formattedAddress'] });
+          const addr = place.formattedAddress || '';
+          onSelect(addr);
+        });
+
+        // Also capture typed text (not selected) as fallback
+        ac.addEventListener('input', (e) => {
+          onSelect(e.target.value || '');
+        });
+      }
+
+      mountAC('iO', addr => { S.origen = addr; });
+      mountAC('iD', addr => { S.destino = addr; });
     }
   </script>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDitPFtAJh_WrpoSlPLF_zUccNrOLikx3M&libraries=places&language=es&region=MX&callback=initAutocomplete" async defer></script>
