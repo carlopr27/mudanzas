@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MUEVO — Mudanzas Profesionales</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --brand:       #FF5200;
+      --brand-dark:  #CC4100;
+      --dark:        #0D0A07;
+      --dark-2:      #1A1510;
+      --cream:       #FFF9F5;
+      --orange-tint: #FFF1E8;
+      --gray:        #6B5A4E;
+      --gray-lt:     #BFB5AF;
+      --fd:          'Bebas Neue', sans-serif;
+      --fb:          'DM Sans', sans-serif;
+      --radius:      16px;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--fb); background: var(--cream); color: var(--dark); overflow-x: hidden; line-height: 1.6; }
+
+    /* ── NAVBAR ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      padding: 22px 48px;
+      display: flex; align-items: center; justify-content: space-between;
+      transition: all .3s ease;
+    }
+    nav.scrolled {
+      background: rgba(13,10,7,.95); backdrop-filter: blur(14px);
+      padding: 14px 48px;
+      box-shadow: 0 2px 24px rgba(0,0,0,.3);
+    }
+    .nav-logo { font-family: var(--fd); font-size: 28px; color: var(--cream); letter-spacing: 2px; text-decoration: none; }
+    .nav-logo span { color: var(--brand); }
+    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links a { color: rgba(255,249,245,.65); text-decoration: none; font-size: 14px; font-weight: 500; letter-spacing: .4px; transition: color .2s; }
+    .nav-links a:hover { color: var(--cream); }
+    .btn-nav {
+      background: var(--brand); color: white; padding: 10px 24px;
+      border-radius: 100px; text-decoration: none; font-size: 14px; font-weight: 700;
+      transition: all .2s;
+    }
+    .btn-nav:hover { background: var(--brand-dark); transform: translateY(-1px); }
+
+    /* ── HERO ── */
+    #inicio {
+      min-height: 100vh; background: var(--dark);
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 130px 48px 90px; position: relative; overflow: hidden;
+    }
+    .hero-watermark {
+      position: absolute; right: -20px; bottom: 0;
+      font-size: 32vw; line-height: 1; opacity: .035;
+      pointer-events: none; user-select: none;
+      filter: grayscale(1);
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(255,82,0,.14); border: 1px solid rgba(255,82,0,.3);
+      color: var(--brand); padding: 6px 18px; border-radius: 100px;
+      font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+      margin-bottom: 32px; width: fit-content;
+    }
+    .hero-title {
+      font-family: var(--fd); font-size: clamp(72px, 13vw, 170px);
+      line-height: .88; color: var(--cream); margin-bottom: 32px; letter-spacing: -1px;
+    }
+    .hero-title .accent { color: var(--brand); }
+    .hero-sub {
+      font-size: clamp(16px, 1.8vw, 20px); color: rgba(255,249,245,.55);
+      max-width: 460px; margin-bottom: 48px; font-weight: 300; line-height: 1.75;
+    }
+    .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--brand); color: white; padding: 16px 36px;
+      border-radius: 100px; text-decoration: none; font-size: 16px; font-weight: 700;
+      border: none; cursor: pointer; transition: all .25s;
+      display: inline-flex; align-items: center; gap: 8px;
+    }
+    .btn-primary:hover { background: var(--brand-dark); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(255,82,0,.45); }
+    .btn-ghost {
+      background: transparent; color: var(--cream); padding: 16px 36px;
+      border-radius: 100px; text-decoration: none; font-size: 16px; font-weight: 500;
+      border: 1px solid rgba(255,249,245,.22); transition: all .25s;
+      display: inline-flex; align-items: center; gap: 8px;
+    }
+    .btn-ghost:hover { border-color: rgba(255,249,245,.55); background: rgba(255,249,245,.05); }
+    .hero-stats {
+      display: flex; gap: 56px; margin-top: 72px;
+      padding-top: 36px; border-top: 1px solid rgba(255,249,245,.09);
+      flex-wrap: wrap;
+    }
+    .stat-num { font-family: var(--fd); font-size: 48px; color: var(--brand); line-height: 1; }
+    .stat-label { font-size: 12px; color: rgba(255,249,245,.4); letter-spacing: .5px; margin-top: 4px; }
+
+    /* ── TRUST STRIP ── */
+    .trust-strip {
+      background: var(--brand); padding: 18px 48px;
+      display: flex; align-items: center; justify-content: center; gap: 48px; flex-wrap: wrap;
+    }
+    .trust-item { display: flex; align-items: center; gap: 10px; color: white; font-size: 14px; font-weight: 600; }
+
+    /* ── SECTIONS ── */
+    section { padding: 96px 48px; }
+    .s-tag { font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--brand); margin-bottom: 16px; display: block; }
+    .s-title { font-family: var(--fd); font-size: clamp(42px, 6vw, 80px); line-height: .92; margin-bottom: 60px; letter-spacing: -.5px; }
+
+    /* ── SERVICES ── */
+    #servicios { background: var(--orange-tint); }
+    .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 22px; }
+    .svc-card {
+      background: white; border-radius: var(--radius); padding: 40px 32px;
+      transition: all .3s; cursor: default; position: relative; overflow: hidden;
+    }
+    .svc-card::after {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
+      background: var(--brand); transform: scaleX(0); transform-origin: left; transition: transform .3s;
+    }
+    .svc-card:hover { transform: translateY(-6px); box-shadow: 0 16px 48px rgba(13,10,7,.12); }
+    .svc-card:hover::after { transform: scaleX(1); }
+    .svc-icon { font-size: 38px; margin-bottom: 22px; display: block; }
+    .svc-card h3 { font-family: var(--fd); font-size: 28px; margin-bottom: 12px; letter-spacing: .5px; }
+    .svc-card p { color: var(--gray); font-size: 15px; line-height: 1.7; }
+
+    /* ── HOW IT WORKS ── */
+    #como { background: white; }
+    .steps-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
+    .step { text-align: center; padding: 36px 24px; }
+    .step-num {
+      width: 64px; height: 64px; background: var(--dark); color: var(--cream);
+      font-family: var(--fd); font-size: 28px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; margin: 0 auto 24px;
+    }
+    .step h3 { font-family: var(--fd); font-size: 26px; margin-bottom: 10px; letter-spacing: .3px; }
+    .step p { color: var(--gray); font-size: 15px; line-height: 1.7; }
+
+    /* ── COTIZADOR ── */
+    #cotizador { background: var(--dark); color: var(--cream); }
+    .quiz-wrap { max-width: 700px; margin: 0 auto; }
+    .quiz-wrap .s-title { color: var(--cream); text-align: center; }
+    .quiz-wrap .s-tag { text-align: center; }
+
+    /* Progress */
+    .prog { display: flex; justify-content: center; gap: 8px; margin-bottom: 44px; }
+    .prog-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,249,245,.18); transition: all .35s; }
+    .prog-dot.active { width: 36px; border-radius: 4px; background: var(--brand); }
+    .prog-dot.done { background: rgba(255,82,0,.4); }
+
+    /* Form card */
+    .form-card {
+      background: rgba(255,249,245,.04); border: 1px solid rgba(255,249,245,.08);
+      border-radius: 24px; padding: 48px;
+    }
+    .q-step { display: none; }
+    .q-step.active { display: block; }
+    .q-head { font-family: var(--fd); font-size: 36px; color: var(--cream); margin-bottom: 6px; letter-spacing: .3px; }
+    .q-sub { color: rgba(255,249,245,.45); font-size: 15px; margin-bottom: 32px; }
+
+    /* Inputs */
+    .fgroup { margin-bottom: 22px; }
+    .fgroup label { display: block; font-size: 11px; font-weight: 700; color: rgba(255,249,245,.5); text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 10px; }
+    .finput {
+      width: 100%; padding: 16px 20px;
+      background: rgba(255,249,245,.06); border: 1px solid rgba(255,249,245,.1);
+      border-radius: 12px; color: var(--cream); font-size: 16px; font-family: var(--fb);
+      outline: none; transition: all .2s;
+    }
+    .finput::placeholder { color: rgba(255,249,245,.22); }
+    .finput:focus { border-color: var(--brand); background: rgba(255,82,0,.06); }
+    input[type="date"].finput::-webkit-calendar-picker-indicator { filter: invert(.5); }
+
+    /* Option buttons */
+    .opts { display: grid; gap: 11px; margin-bottom: 6px; }
+    .opts.g2 { grid-template-columns: 1fr 1fr; }
+    .opts.g3 { grid-template-columns: repeat(3, 1fr); }
+    .opt-btn {
+      padding: 15px 18px;
+      background: rgba(255,249,245,.04); border: 1px solid rgba(255,249,245,.1);
+      border-radius: 12px; color: var(--cream); cursor: pointer;
+      font-family: var(--fb); font-size: 14px; font-weight: 500;
+      text-align: left; display: flex; align-items: center; gap: 12px;
+      transition: all .2s; line-height: 1.3;
+    }
+    .opt-btn:hover { border-color: rgba(255,82,0,.4); background: rgba(255,82,0,.06); }
+    .opt-btn.sel { border-color: var(--brand); background: rgba(255,82,0,.13); color: white; }
+    .opt-icon { font-size: 20px; flex-shrink: 0; }
+    .opt-sub { font-size: 12px; color: rgba(255,249,245,.38); display: block; margin-top: 2px; font-weight: 400; }
+
+    /* Checkboxes */
+    .chk-btn {
+      padding: 16px 20px;
+      background: rgba(255,249,245,.04); border: 1px solid rgba(255,249,245,.1);
+      border-radius: 12px; color: var(--cream); cursor: pointer;
+      font-family: var(--fb); font-size: 15px;
+      text-align: left; display: flex; align-items: center; gap: 14px;
+      transition: all .2s; width: 100%; margin-bottom: 11px;
+    }
+    .chk-btn:hover { border-color: rgba(255,82,0,.4); }
+    .chk-btn.chked { border-color: var(--brand); background: rgba(255,82,0,.12); }
+    .chk-box {
+      width: 22px; height: 22px; flex-shrink: 0;
+      border: 2px solid rgba(255,249,245,.25); border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; color: transparent; transition: all .2s;
+    }
+    .chk-btn.chked .chk-box { background: var(--brand); border-color: var(--brand); color: white; }
+    .chk-meta { display: flex; flex-direction: column; }
+    .chk-meta strong { font-size: 14px; font-weight: 600; }
+    .chk-meta small { font-size: 12px; color: rgba(255,249,245,.38); margin-top: 2px; }
+
+    /* Form nav */
+    .form-nav { display: flex; justify-content: space-between; align-items: center; margin-top: 36px; }
+    .btn-back { background: none; border: none; color: rgba(255,249,245,.35); font-size: 14px; cursor: pointer; font-family: var(--fb); padding: 12px 0; transition: color .2s; display: flex; align-items: center; gap: 6px; }
+    .btn-back:hover { color: rgba(255,249,245,.75); }
+    .btn-back:disabled { opacity: 0; pointer-events: none; }
+    .btn-next {
+      background: var(--brand); color: white; border: none; padding: 15px 34px;
+      border-radius: 100px; font-size: 16px; font-weight: 700; font-family: var(--fb);
+      cursor: pointer; transition: all .25s; display: flex; align-items: center; gap: 8px;
+    }
+    .btn-next:hover { background: var(--brand-dark); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(255,82,0,.4); }
+    .err-msg { color: #FF7070; font-size: 13px; margin-top: 10px; display: none; }
+
+    /* Result */
+    #result-card { display: none; }
+    .res-price {
+      background: rgba(255,82,0,.1); border: 1px solid rgba(255,82,0,.28);
+      border-radius: 20px; padding: 36px; margin: 28px 0; text-align: center;
+    }
+    .res-label { font-size: 11px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--brand); margin-bottom: 8px; }
+    .res-range { font-family: var(--fd); font-size: clamp(36px, 6vw, 64px); color: var(--cream); line-height: 1; }
+    .res-note { font-size: 12px; color: rgba(255,249,245,.35); margin-top: 10px; }
+    .res-details { margin: 24px 0; }
+    .res-row { display: flex; align-items: center; gap: 12px; padding: 11px 0; border-bottom: 1px solid rgba(255,249,245,.06); font-size: 14px; color: rgba(255,249,245,.65); }
+    .res-row:last-child { border-bottom: none; }
+    .res-row .ri { font-size: 17px; }
+    .wa-btn {
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      background: #25D366; color: white; padding: 18px 36px; border-radius: 100px;
+      text-decoration: none; font-size: 17px; font-weight: 700; margin-bottom: 12px;
+      transition: all .25s;
+    }
+    .wa-btn:hover { background: #1FB858; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(37,211,102,.4); }
+    .tel-btn {
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      background: transparent; color: var(--cream); padding: 15px 36px; border-radius: 100px;
+      text-decoration: none; font-size: 15px; font-weight: 500;
+      border: 1px solid rgba(255,249,245,.2); transition: all .25s;
+    }
+    .tel-btn:hover { border-color: rgba(255,249,245,.5); }
+
+    /* ── TESTIMONIALS ── */
+    #testimonios { background: var(--orange-tint); }
+    .testi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+    .testi-card { background: white; border-radius: var(--radius); padding: 32px; }
+    .stars { color: var(--brand); font-size: 16px; letter-spacing: 2px; margin-bottom: 16px; }
+    .testi-text { font-size: 15px; line-height: 1.75; color: var(--dark); margin-bottom: 24px; }
+    .testi-author { display: flex; align-items: center; gap: 12px; }
+    .avatar { width: 44px; height: 44px; border-radius: 50%; background: var(--brand); color: white; font-family: var(--fd); font-size: 22px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .author-name { font-weight: 700; font-size: 14px; }
+    .author-route { font-size: 12px; color: var(--gray); margin-top: 2px; }
+
+    /* ── CTA ── */
+    .cta-section { background: var(--brand); padding: 88px 48px; text-align: center; }
+    .cta-section h2 { font-family: var(--fd); font-size: clamp(52px, 9vw, 110px); color: white; line-height: .88; margin-bottom: 28px; }
+    .cta-section p { color: rgba(255,255,255,.72); font-size: 18px; margin-bottom: 40px; }
+    .btn-white { background: white; color: var(--brand); padding: 18px 48px; border-radius: 100px; text-decoration: none; font-size: 17px; font-weight: 700; display: inline-flex; align-items: center; gap: 10px; transition: all .25s; }
+    .btn-white:hover { transform: translateY(-3px); box-shadow: 0 12px 36px rgba(0,0,0,.2); }
+
+    /* ── FOOTER ── */
+    footer { background: var(--dark); color: rgba(255,249,245,.4); padding: 44px 48px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; }
+    .footer-logo { font-family: var(--fd); font-size: 24px; color: var(--cream); letter-spacing: 2px; }
+    .footer-logo span { color: var(--brand); }
+    footer p { font-size: 13px; }
+    .footer-links { display: flex; gap: 24px; list-style: none; }
+    .footer-links a { color: rgba(255,249,245,.35); text-decoration: none; font-size: 13px; transition: color .2s; }
+    .footer-links a:hover { color: var(--cream); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: 16px 20px; }
+      nav.scrolled { padding: 12px 20px; }
+      .nav-links { display: none; }
+      #inicio, section { padding: 80px 20px; }
+      .trust-strip { gap: 20px; padding: 18px 20px; }
+      .cta-section { padding: 72px 20px; }
+      footer { padding: 40px 20px; flex-direction: column; text-align: center; }
+      .steps-grid { grid-template-columns: 1fr; gap: 20px; }
+      .form-card { padding: 28px 20px; }
+      .opts.g2, .opts.g3 { grid-template-columns: 1fr; }
+      .hero-stats { gap: 28px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav id="navbar">
+    <a href="#inicio" class="nav-logo">MUEVO<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#como">Cómo funciona</a></li>
+      <li><a href="#cotizador">Cotizar</a></li>
+      <li><a href="#testimonios">Reseñas</a></li>
+    </ul>
+    <a href="#cotizador" class="btn-nav">Cotiza gratis →</a>
+  </nav>
+
+  <!-- HERO -->
+  <section id="inicio">
+    <div class="hero-watermark">🚚</div>
+    <div class="hero-badge">✦ Mudanzas profesionales</div>
+    <h1 class="hero-title">
+      YO<br>
+      <span class="accent">MUEVO</span><br>
+      TODO.
+    </h1>
+    <p class="hero-sub">Del departamento a la casa, del barrio al estado. Con cuidado, puntualidad y precios sin sorpresas.</p>
+    <div class="hero-ctas">
+      <a href="#cotizador" class="btn-primary">📦 Cotiza gratis</a>
+      <a href="#servicios" class="btn-ghost">Ver servicios ↓</a>
+    </div>
+    <div class="hero-stats">
+      <div><div class="stat-num">500+</div><div class="stat-label">Mudanzas realizadas</div></div>
+      <div><div class="stat-num">8</div><div class="stat-label">Años de experiencia</div></div>
+      <div><div class="stat-num">96%</div><div class="stat-label">Clientes satisfechos</div></div>
+      <div><div class="stat-num">&lt;1h</div><div class="stat-label">Tiempo de respuesta</div></div>
+    </div>
+  </section>
+
+  <!-- TRUST STRIP -->
+  <div class="trust-strip">
+    <div class="trust-item">✅ Precio transparente, sin letra chica</div>
+    <div class="trust-item">🔒 Mobiliario asegurado</div>
+    <div class="trust-item">⚡ Respuesta en menos de 1 hora</div>
+    <div class="trust-item">📍 Locales y foráneas</div>
+  </div>
+
+  <!-- SERVICIOS -->
+  <section id="servicios">
+    <span class="s-tag">Nuestros servicios</span>
+    <h2 class="s-title">LO QUE<br>MOVEMOS</h2>
+    <div class="services-grid">
+      <div class="svc-card">
+        <span class="svc-icon">🏙️</span>
+        <h3>Mudanzas Locales</h3>
+        <p>Dentro de la ciudad o colonia. Rápidas, puntuales y sin contratiempos. Camión y personal incluidos.</p>
+      </div>
+      <div class="svc-card">
+        <span class="svc-icon">🛣️</span>
+        <h3>Mudanzas Foráneas</h3>
+        <p>A otro estado o ciudad. Coordinamos todo para que tus cosas lleguen sanas y salvas a destino.</p>
+      </div>
+      <div class="svc-card">
+        <span class="svc-icon">📦</span>
+        <h3>Embalaje Profesional</h3>
+        <p>Cajas, papel burbuja, plástico stretch. Embalamos todo para que nada se rompa en el camino.</p>
+      </div>
+      <div class="svc-card">
+        <span class="svc-icon">🏬</span>
+        <h3>Bodega Temporal</h3>
+        <p>¿No tienes fecha exacta? Guardamos tus cosas en instalaciones seguras y monitoreadas.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CÓMO FUNCIONA -->
+  <section id="como">
+    <span class="s-tag">El proceso</span>
+    <h2 class="s-title">ASÍ DE<br>FÁCIL</h2>
+    <div class="steps-grid">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h3>Cotiza en línea</h3>
+        <p>Llena el formulario en menos de 2 minutos. Sin compromisos, sin registro, sin spam.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3>Confirmamos por WhatsApp</h3>
+        <p>Te contactamos en menos de 1 hora con el precio final y acordamos fecha y detalles.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3>Nosotros nos encargamos</h3>
+        <p>Llegamos puntual, movemos todo con cuidado y dejamos tu nuevo hogar listo.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- COTIZADOR -->
+  <section id="cotizador">
+    <div class="quiz-wrap">
+      <span class="s-tag">Rápido y gratuito</span>
+      <h2 class="s-title">COTIZA EN<br>2 MINUTOS</h2>
+
+      <!-- Progress dots -->
+      <div class="prog" id="prog">
+        <div class="prog-dot active" id="pd1"></div>
+        <div class="prog-dot" id="pd2"></div>
+        <div class="prog-dot" id="pd3"></div>
+        <div class="prog-dot" id="pd4"></div>
+        <div class="prog-dot" id="pd5"></div>
+        <div class="prog-dot" id="pd6"></div>
+      </div>
+
+      <!-- Form card -->
+      <div class="form-card" id="formCard">
+
+        <!-- STEP 1: Origen & Destino -->
+        <div class="q-step active" id="qs1">
+          <p class="q-head">¿A dónde te mudas?</p>
+          <p class="q-sub">Dinos de dónde sales y a dónde llegas</p>
+          <div class="fgroup">
+            <label>Origen — ¿De dónde sales?</label>
+            <input class="finput" id="iOrigen" type="text" placeholder="Ej: Colonia Del Valle, CDMX">
+          </div>
+          <div class="fgroup">
+            <label>Destino — ¿A dónde llegas?</label>
+            <input class="finput" id="iDestino" type="text" placeholder="Ej: Santa Fe, CDMX">
+          </div>
+          <p class="err-msg" id="e1">Por favor ingresa origen y destino.</p>
+        </div>
+
+        <!-- STEP 2: Tamaño del hogar -->
+        <div class="q-step" id="qs2">
+          <p class="q-head">¿Cómo es tu hogar?</p>
+          <p class="q-sub">Selecciona el tamaño aproximado</p>
+          <div class="opts" id="hogarOpts">
+            <button class="opt-btn" data-v="estudio" onclick="pick('hogar',this)">
+              <span class="opt-icon">🛏️</span><span>Estudio o cuarto<span class="opt-sub">Un espacio, pocas cosas</span></span>
+            </button>
+            <button class="opt-btn" data-v="1rec" onclick="pick('hogar',this)">
+              <span class="opt-icon">🏠</span><span>1 recámara<span class="opt-sub">Sala, cocina y 1 recámara</span></span>
+            </button>
+            <button class="opt-btn" data-v="2rec" onclick="pick('hogar',this)">
+              <span class="opt-icon">🏡</span><span>2 recámaras<span class="opt-sub">Departamento mediano</span></span>
+            </button>
+            <button class="opt-btn" data-v="3rec" onclick="pick('hogar',this)">
+              <span class="opt-icon">🏘️</span><span>3 recámaras<span class="opt-sub">Casa o depto grande</span></span>
+            </button>
+            <button class="opt-btn" data-v="4plus" onclick="pick('hogar',this)">
+              <span class="opt-icon">🏰</span><span>Casa grande 4+<span class="opt-sub">Mucho que mover</span></span>
+            </button>
+          </div>
+          <p class="err-msg" id="e2">Selecciona el tamaño de tu hogar.</p>
+        </div>
+
+        <!-- STEP 3: Acceso -->
+        <div class="q-step" id="qs3">
+          <p class="q-head">Acceso en ambas direcciones</p>
+          <p class="q-sub">Esto afecta el esfuerzo y el tiempo de la mudanza</p>
+          <div class="fgroup">
+            <label>Acceso en el lugar de salida</label>
+            <div class="opts g3" id="aoOpts">
+              <button class="opt-btn" data-v="pb" onclick="pick('ao',this)"><span class="opt-icon">🌿</span>Planta baja</button>
+              <button class="opt-btn" data-v="elev" onclick="pick('ao',this)"><span class="opt-icon">🛗</span>Con elevador</button>
+              <button class="opt-btn" data-v="esc" onclick="pick('ao',this)"><span class="opt-icon">🪜</span>Sin elevador</button>
+            </div>
+          </div>
+          <div class="fgroup" style="margin-top:24px;">
+            <label>Acceso en el lugar de llegada</label>
+            <div class="opts g3" id="adOpts">
+              <button class="opt-btn" data-v="pb" onclick="pick('ad',this)"><span class="opt-icon">🌿</span>Planta baja</button>
+              <button class="opt-btn" data-v="elev" onclick="pick('ad',this)"><span class="opt-icon">🛗</span>Con elevador</button>
+              <button class="opt-btn" data-v="esc" onclick="pick('ad',this)"><span class="opt-icon">🪜</span>Sin elevador</button>
+            </div>
+          </div>
+          <p class="err-msg" id="e3">Selecciona el tipo de acceso en ambos lugares.</p>
+        </div>
+
+        <!-- STEP 4: Extras -->
+        <div class="q-step" id="qs4">
+          <p class="q-head">¿Algo extra?</p>
+          <p class="q-sub">Servicios adicionales opcionales — puedes no seleccionar ninguno</p>
+          <button class="chk-btn" id="chkE" onclick="tog('embalaje',this)">
+            <span class="chk-box">✓</span>
+            <span class="chk-meta"><strong>📦 Embalaje de artículos</strong><small>Cajas, papel burbuja y plástico stretch</small></span>
+          </button>
+          <button class="chk-btn" id="chkD" onclick="tog('desarmado',this)">
+            <span class="chk-box">✓</span>
+            <span class="chk-meta"><strong>🔧 Desarmado y armado de muebles</strong><small>Camas, closets, libreros, escritorios</small></span>
+          </button>
+          <button class="chk-btn" id="chkB" onclick="tog('bodega',this)">
+            <span class="chk-box">✓</span>
+            <span class="chk-meta"><strong>🏬 Bodega temporal</strong><small>Guardamos tus cosas mientras esperas</small></span>
+          </button>
+        </div>
+
+        <!-- STEP 5: Fecha -->
+        <div class="q-step" id="qs5">
+          <p class="q-head">¿Cuándo te mudas?</p>
+          <p class="q-sub">Una fecha aproximada nos ayuda a verificar disponibilidad</p>
+          <div class="fgroup">
+            <label>Fecha deseada</label>
+            <input class="finput" id="iFecha" type="date">
+          </div>
+          <div class="fgroup">
+            <label>¿Tienes flexibilidad de fecha?</label>
+            <div class="opts g2" id="flexOpts">
+              <button class="opt-btn" data-v="si" onclick="pick('flex',this)"><span class="opt-icon">✅</span>Sí, soy flexible</button>
+              <button class="opt-btn" data-v="no" onclick="pick('flex',this)"><span class="opt-icon">📅</span>Solo ese día me funciona</button>
+            </div>
+          </div>
+          <p class="err-msg" id="e5">Por favor ingresa la fecha y la flexibilidad.</p>
+        </div>
+
+        <!-- STEP 6: Contacto -->
+        <div class="q-step" id="qs6">
+          <p class="q-head">¿Con quién hablamos?</p>
+          <p class="q-sub">Para enviarte tu cotización por WhatsApp</p>
+          <div class="fgroup">
+            <label>Tu nombre</label>
+            <input class="finput" id="iNombre" type="text" placeholder="Ej: María García">
+          </div>
+          <div class="fgroup">
+            <label>Tu número de WhatsApp</label>
+            <input class="finput" id="iWA" type="tel" placeholder="Ej: 55 1234 5678">
+          </div>
+          <p class="err-msg" id="e6">Por favor ingresa tu nombre y número de WhatsApp.</p>
+        </div>
+
+        <!-- Navigation -->
+        <div class="form-nav">
+          <button class="btn-back" id="btnBack" onclick="prevQ()" disabled>← Atrás</button>
+          <button class="btn-next" id="btnNext" onclick="nextQ()">Siguiente →</button>
+        </div>
+      </div>
+
+      <!-- RESULT CARD -->
+      <div class="form-card" id="result-card">
+        <div style="text-align:center;margin-bottom:4px;">
+          <div style="font-size:56px;margin-bottom:12px;">🎉</div>
+          <p class="q-head" id="resName" style="text-align:center;">¡Listo!</p>
+          <p class="q-sub" style="text-align:center;">Aquí está tu estimación:</p>
+        </div>
+        <div class="res-price">
+          <p class="res-label">Rango estimado</p>
+          <p class="res-range" id="resRange">$0 — $0 MXN</p>
+          <p class="res-note">El precio final se confirma por WhatsApp según detalles específicos</p>
+        </div>
+        <div class="res-details" id="resDetails"></div>
+        <a href="#" class="wa-btn" id="waLink" target="_blank">💬 Confirmar cotización por WhatsApp</a>
+        <a href="tel:+525512345678" class="tel-btn">📞 Prefiero que me llamen</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section id="testimonios">
+    <span class="s-tag">Lo que dicen nuestros clientes</span>
+    <h2 class="s-title">CLIENTES<br>FELICES</h2>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div class="stars">★★★★★</div>
+        <p class="testi-text">"Increíble servicio. Llegaron puntual, cargaron todo con cuidado y ni un rasguño en mis muebles. Lo recomiendo ampliamente a todos."</p>
+        <div class="testi-author"><div class="avatar">M</div><div><div class="author-name">María F.</div><div class="author-route">Polanco → Santa Fe</div></div></div>
+      </div>
+      <div class="testi-card">
+        <div class="stars">★★★★★</div>
+        <p class="testi-text">"Cotizé en 2 minutos, me respondieron rápido y el precio fue justo. Sin letra chica, sin cobros sorpresa. Así debería ser siempre."</p>
+        <div class="testi-author"><div class="avatar">R</div><div><div class="author-name">Roberto L.</div><div class="author-route">Del Valle → Coyoacán</div></div></div>
+      </div>
+      <div class="testi-card">
+        <div class="stars">★★★★★</div>
+        <p class="testi-text">"Mudanza foránea de CDMX a Guadalajara. Todo llegó perfecto, incluso mis cosas más delicadas. Un equipo muy profesional y confiable."</p>
+        <div class="testi-author"><div class="avatar">A</div><div><div class="author-name">Andrea G.</div><div class="author-route">CDMX → Guadalajara</div></div></div>
+      </div>
+      <div class="testi-card">
+        <div class="stars">★★★★★</div>
+        <p class="testi-text">"El embalaje estuvo increíble. Se tardaron en empacar pero todo llegó intacto. Mejor precio que 3 empresas que cotizamos antes."</p>
+        <div class="testi-author"><div class="avatar">C</div><div><div class="author-name">Carlos M.</div><div class="author-route">Nápoles → Lomas Verdes</div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <div class="cta-section">
+    <h2>¿LISTO PARA<br>MUDARTE?</h2>
+    <p>Una cotización gratis, sin compromisos y en menos de 2 minutos.</p>
+    <a href="#cotizador" class="btn-white">📦 Cotiza ahora</a>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">MUEVO<span>.</span></div>
+    <p>© 2025 MUEVO — Mudanzas Profesionales</p>
+    <ul class="footer-links">
+      <li><a href="https://wa.me/525512345678" target="_blank">WhatsApp</a></li>
+      <li><a href="tel:+525512345678">Teléfono</a></li>
+      <li><a href="mailto:hola@muevo.mx">Email</a></li>
+    </ul>
+  </footer>
+
+  <script>
+    // ─── CONFIG (cambiar antes de entregar al cliente) ───
+    const WA_NUMBER = '525512345678'; // número real sin + ni espacios
+
+    // ─── STATE ───────────────────────────────────────────
+    const S = {
+      step: 1, total: 6,
+      origen:'', destino:'',
+      hogar:'', ao:'', ad:'',
+      extras:{ embalaje:false, desarmado:false, bodega:false },
+      fecha:'', flex:'',
+      nombre:'', wa:''
+    };
+
+    // ─── NAVBAR ──────────────────────────────────────────
+    window.addEventListener('scroll', () =>
+      document.getElementById('navbar').classList.toggle('scrolled', scrollY > 80)
+    );
+
+    // ─── STEP UI ─────────────────────────────────────────
+    function refreshUI() {
+      for (let i = 1; i <= S.total; i++) {
+        document.getElementById('qs'+i)?.classList.toggle('active', i === S.step);
+        const d = document.getElementById('pd'+i);
+        if (d) {
+          d.className = 'prog-dot' +
+            (i === S.step ? ' active' : '') +
+            (i  < S.step ? ' done'   : '');
+        }
+      }
+      document.getElementById('btnBack').disabled = S.step === 1;
+      document.getElementById('btnNext').textContent =
+        S.step === S.total ? '🎉 Ver mi cotización' : 'Siguiente →';
+    }
+
+    // ─── OPTION PICKER ───────────────────────────────────
+    function pick(field, btn) {
+      btn.parentElement.querySelectorAll('.opt-btn').forEach(b => b.classList.remove('sel'));
+      btn.classList.add('sel');
+      S[field] = btn.dataset.v;
+    }
+
+    function tog(key, btn) {
+      S.extras[key] = !S.extras[key];
+      btn.classList.toggle('chked', S.extras[key]);
+    }
+
+    // ─── VALIDATION ──────────────────────────────────────
+    function validate() {
+      document.querySelectorAll('.err-msg').forEach(e => e.style.display='none');
+      if (S.step === 1) {
+        S.origen  = document.getElementById('iOrigen').value.trim();
+        S.destino = document.getElementById('iDestino').value.trim();
+        if (!S.origen || !S.destino) { document.getElementById('e1').style.display='block'; return false; }
+      }
+      if (S.step === 2 && !S.hogar) { document.getElementById('e2').style.display='block'; return false; }
+      if (S.step === 3 && (!S.ao || !S.ad)) { document.getElementById('e3').style.display='block'; return false; }
+      if (S.step === 5) {
+        S.fecha = document.getElementById('iFecha').value;
+        if (!S.fecha || !S.flex) { document.getElementById('e5').style.display='block'; return false; }
+      }
+      if (S.step === 6) {
+        S.nombre = document.getElementById('iNombre').value.trim();
+        S.wa     = document.getElementById('iWA').value.trim();
+        if (!S.nombre || !S.wa) { document.getElementById('e6').style.display='block'; return false; }
+      }
+      return true;
+    }
+
+    // ─── NAVIGATION ──────────────────────────────────────
+    function nextQ() {
+      if (!validate()) return;
+      if (S.step === S.total) { showResult(); return; }
+      S.step++;
+      refreshUI();
+    }
+
+    function prevQ() {
+      if (S.step > 1) { S.step--; refreshUI(); }
+    }
+
+    // ─── PRICE CALC ──────────────────────────────────────
+    function calcPrice() {
+      const base = {
+        estudio:[1500,2800], '1rec':[2800,4500],
+        '2rec':[4500,7000],  '3rec':[7000,10500], '4plus':[10500,16000]
+      };
+      let [mn, mx] = base[S.hogar] || [3000,6000];
+      // Escalera surcharge: +12% por punto sin elevador
+      if (S.ao === 'esc') { mn*=1.12; mx*=1.12; }
+      if (S.ad === 'esc') { mn*=1.12; mx*=1.12; }
+      // Extras
+      if (S.extras.embalaje)  { mn+=600;  mx+=800;  }
+      if (S.extras.desarmado) { mn+=700;  mx+=900;  }
+      if (S.extras.bodega)    { mn+=1000; mx+=1500; }
+      // Round to hundreds
+      return [Math.ceil(mn/100)*100, Math.ceil(mx/100)*100];
+    }
+
+    // ─── WHATSAPP MESSAGE ────────────────────────────────
+    function buildMsg(min, max) {
+      const HL = { estudio:'Estudio', '1rec':'1 recámara', '2rec':'2 recámaras', '3rec':'3 recámaras', '4plus':'Casa grande 4+' };
+      const AL = { pb:'Planta baja', elev:'Con elevador', esc:'Sin elevador (escaleras)' };
+      const extras = ['embalaje','desarmado','bodega']
+        .filter(k => S.extras[k])
+        .map(k => ({ embalaje:'Embalaje', desarmado:'Desarmado/Armado', bodega:'Bodega' }[k]));
+
+      const fechaStr = S.fecha
+        ? new Date(S.fecha+'T12:00').toLocaleDateString('es-MX',{weekday:'long',day:'numeric',month:'long',year:'numeric'})
+        : 'Por definir';
+
+      return encodeURIComponent(
+`Hola! Me interesa cotizar una mudanza 📦
+
+*Mis datos:*
+👤 Nombre: ${S.nombre}
+📍 Origen: ${S.origen}
+📍 Destino: ${S.destino}
+🏠 Tamaño: ${HL[S.hogar]}
+🛗 Acceso salida: ${AL[S.ao]}
+🛗 Acceso llegada: ${AL[S.ad]}
+➕ Servicios extra: ${extras.length ? extras.join(', ') : 'Ninguno'}
+📅 Fecha: ${fechaStr} (${S.flex==='si'?'Soy flexible':'Solo ese día'})
+
+💰 Estimación: $${min.toLocaleString()} — $${max.toLocaleString()} MXN
+
+Por favor confirmen mi cotización. ¡Gracias!`
+      );
+    }
+
+    // ─── SHOW RESULT ─────────────────────────────────────
+    function showResult() {
+      const [mn, mx] = calcPrice();
+      const HL = { estudio:'Estudio', '1rec':'1 recámara', '2rec':'2 recámaras', '3rec':'3 recámaras', '4plus':'Casa grande 4+' };
+      const AL = { pb:'Planta baja', elev:'Con elevador', esc:'Sin elevador' };
+      const extras = ['embalaje','desarmado','bodega']
+        .filter(k => S.extras[k])
+        .map(k => ({ embalaje:'Embalaje', desarmado:'Desarmado/Armado muebles', bodega:'Bodega' }[k]));
+
+      document.getElementById('formCard').style.display = 'none';
+      document.getElementById('prog').style.display = 'none';
+      const rc = document.getElementById('result-card');
+      rc.style.display = 'block';
+
+      document.getElementById('resName').textContent = `¡Listo, ${S.nombre}!`;
+      document.getElementById('resRange').textContent = `$${mn.toLocaleString()} — $${mx.toLocaleString()} MXN`;
+
+      const rows = [
+        ['📍', `${S.origen} → ${S.destino}`],
+        ['🏠', HL[S.hogar]],
+        ['🛗', `Salida: ${AL[S.ao]} · Llegada: ${AL[S.ad]}`],
+        ['➕', extras.length ? extras.join(', ') : 'Sin servicios extra'],
+        ['📅', `${S.fecha} · ${S.flex==='si'?'Flexible':'Fecha fija'}`],
+      ];
+
+      document.getElementById('resDetails').innerHTML =
+        rows.map(([ic,tx]) => `<div class="res-row"><span class="ri">${ic}</span><span>${tx}</span></div>`).join('');
+
+      document.getElementById('waLink').href =
+        `https://wa.me/${WA_NUMBER}?text=${buildMsg(mn, mx)}`;
+    }
+
+    // Init
+    refreshUI();
+  </script>
+</body>
+</html>
