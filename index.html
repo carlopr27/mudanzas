@@ -23,6 +23,7 @@
     }
     html { scroll-behavior: smooth; }
     body { font-family: var(--fb); background: var(--cream); color: var(--dark); overflow-x: hidden; line-height: 1.6; }
+    .wrap { max-width: 1100px; margin: 0 auto; width: 100%; }
 
     /* ── NAVBAR ── */
     nav {
@@ -46,19 +47,20 @@
     .btn-nav:hover { background: var(--brand-dk); transform: translateY(-1px); }
 
     /* ── HERO ── */
-    #inicio { min-height: 100vh; background: var(--dark); display: flex; flex-direction: column; justify-content: center; padding: 130px 48px 90px; position: relative; overflow: hidden; }
+    #inicio { min-height: 100vh; background: var(--dark); display: flex; flex-direction: column; justify-content: center; padding: 120px 48px 72px; position: relative; overflow: hidden; }
+    #inicio .wrap { max-width: 800px; }
     .hero-wm { position: absolute; right: -40px; bottom: -20px; font-size: 36vw; line-height: 1; opacity: .03; pointer-events: none; user-select: none; }
     .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,82,0,.13); border: 1px solid rgba(255,82,0,.28); color: var(--brand); padding: 6px 18px; border-radius: 100px; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 28px; width: fit-content; }
-    h1.hero-title { font-family: var(--fd); font-size: clamp(68px, 12vw, 160px); line-height: .88; color: var(--cream); margin-bottom: 28px; letter-spacing: -1px; }
+    h1.hero-title { font-family: var(--fd); font-size: clamp(48px, 6vw, 88px); line-height: .9; color: var(--cream); margin-bottom: 28px; letter-spacing: -1px; }
     h1.hero-title .accent { color: var(--brand); }
-    .hero-sub { font-size: clamp(15px, 1.8vw, 19px); color: rgba(255,249,245,.52); max-width: 440px; margin-bottom: 44px; font-weight: 300; line-height: 1.75; }
+    .hero-sub { font-size: 16px; color: rgba(255,249,245,.52); max-width: 420px; margin-bottom: 40px; font-weight: 300; line-height: 1.75; }
     .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
     .btn-p { background: var(--brand); color: white; padding: 15px 34px; border-radius: 100px; text-decoration: none; font-size: 15px; font-weight: 700; border: none; cursor: pointer; transition: all .25s; display: inline-flex; align-items: center; gap: 8px; }
     .btn-p:hover { background: var(--brand-dk); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(255,82,0,.45); }
     .btn-g { background: transparent; color: var(--cream); padding: 15px 34px; border-radius: 100px; text-decoration: none; font-size: 15px; font-weight: 500; border: 1px solid rgba(255,249,245,.2); transition: all .25s; display: inline-flex; align-items: center; gap: 8px; }
     .btn-g:hover { border-color: rgba(255,249,245,.5); }
-    .hero-stats { display: flex; gap: 48px; margin-top: 64px; padding-top: 32px; border-top: 1px solid rgba(255,249,245,.09); flex-wrap: wrap; }
-    .sn { font-family: var(--fd); font-size: 46px; color: var(--brand); line-height: 1; }
+    .hero-stats { display: flex; gap: 40px; margin-top: 48px; padding-top: 28px; border-top: 1px solid rgba(255,249,245,.09); flex-wrap: wrap; }
+    .sn { font-family: var(--fd); font-size: 36px; color: var(--brand); line-height: 1; }
     .sl { font-size: 11px; color: rgba(255,249,245,.38); letter-spacing: .5px; margin-top: 4px; }
 
     /* ── TRUST STRIP ── */
@@ -66,9 +68,9 @@
     .ti { display: flex; align-items: center; gap: 9px; color: white; font-size: 13px; font-weight: 600; }
 
     /* ── COMMON ── */
-    section { padding: 96px 48px; }
+    section { padding: 72px 48px; }
     .s-tag { font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--brand); margin-bottom: 14px; display: block; }
-    .s-title { font-family: var(--fd); font-size: clamp(40px, 6vw, 80px); line-height: .92; margin-bottom: 56px; letter-spacing: -.5px; }
+    .s-title { font-family: var(--fd); font-size: clamp(34px, 3.5vw, 54px); line-height: .92; margin-bottom: 48px; letter-spacing: -.5px; }
     .s-title.light { color: var(--cream); }
 
     /* ── SERVICIOS ── */
@@ -187,8 +189,8 @@
     .ar { font-size: 12px; color: var(--gray); margin-top: 1px; }
 
     /* ── CTA ── */
-    .cta { background: var(--brand); padding: 80px 48px; text-align: center; }
-    .cta h2 { font-family: var(--fd); font-size: clamp(48px, 8vw, 100px); color: white; line-height: .88; margin-bottom: 24px; }
+    .cta { background: var(--brand); padding: 64px 48px; text-align: center; }
+    .cta h2 { font-family: var(--fd); font-size: clamp(40px, 5vw, 72px); color: white; line-height: .9; margin-bottom: 20px; }
     .cta p { color: rgba(255,255,255,.7); font-size: 17px; margin-bottom: 36px; }
     .btn-wh { background: white; color: var(--brand); padding: 17px 44px; border-radius: 100px; text-decoration: none; font-size: 16px; font-weight: 700; display: inline-flex; align-items: center; gap: 9px; transition: all .25s; }
     .btn-wh:hover { transform: translateY(-3px); box-shadow: 0 12px 36px rgba(0,0,0,.2); }
@@ -201,6 +203,15 @@
     .flinks { display: flex; gap: 22px; list-style: none; }
     .flinks a { color: rgba(255,249,245,.32); text-decoration: none; font-size: 12px; transition: color .2s; }
     .flinks a:hover { color: var(--cream); }
+
+    /* ── GOOGLE AUTOCOMPLETE DROPDOWN ── */
+    .pac-container { background: #1A1510; border: 1px solid rgba(255,82,0,.28); border-radius: 12px; font-family: 'DM Sans', sans-serif; margin-top: 4px; box-shadow: 0 8px 32px rgba(0,0,0,.5); padding: 4px 0; }
+    .pac-item { padding: 10px 16px; color: rgba(255,249,245,.65); border-top: 1px solid rgba(255,249,245,.06); cursor: pointer; font-size: 14px; line-height: 1.4; }
+    .pac-item:first-child { border-top: none; }
+    .pac-item:hover, .pac-item.pac-item-selected { background: rgba(255,82,0,.1); }
+    .pac-item-query { color: var(--cream); font-size: 14px; font-weight: 500; }
+    .pac-matched { color: var(--brand); font-weight: 700; }
+    .pac-icon, .pac-logo { display: none !important; }
 
     /* ── FLOATING WA ── */
     .wa-float { position: fixed; bottom: 28px; right: 28px; z-index: 300; width: 56px; height: 56px; background: #25D366; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 26px; text-decoration: none; box-shadow: 0 4px 20px rgba(37,211,102,.5); transition: all .25s; }
@@ -215,17 +226,18 @@
       nav { padding: 14px 18px; }
       nav.scrolled { padding: 10px 18px; }
       .nav-links, .nav-tel { display: none; }
-      #inicio, section { padding: 80px 18px; }
-      .trust { gap: 18px; padding: 16px 18px; }
-      .cta { padding: 64px 18px; }
-      footer { padding: 36px 18px; flex-direction: column; text-align: center; }
+      #inicio { padding: 100px 20px 60px; }
+      section { padding: 56px 20px; }
+      .trust { gap: 16px; padding: 14px 20px; }
+      .cta { padding: 56px 20px; }
+      footer { padding: 32px 20px; flex-direction: column; text-align: center; }
       .steps { grid-template-columns: 1fr; }
       .step-item::after { display: none !important; }
       .gal-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
       .gal-item:first-child { grid-row: span 1; }
-      .fcard { padding: 26px 18px; }
+      .fcard { padding: 24px 16px; }
       .opts.g2, .opts.g3 { grid-template-columns: 1fr; }
-      .hero-stats { gap: 24px; }
+      .hero-stats { gap: 20px; }
     }
   </style>
 </head>
@@ -255,6 +267,7 @@
   <!-- HERO -->
   <section id="inicio">
     <div class="hero-wm">🚚</div>
+    <div class="wrap">
     <div class="hero-badge">✦ Empresa familiar · 8 años de experiencia</div>
     <h1 class="hero-title">
       MUEVE TU<br>
@@ -272,6 +285,7 @@
       <div><div class="sn">96%</div><div class="sl">Clientes satisfechos</div></div>
       <div><div class="sn">&lt;1h</div><div class="sl">Tiempo de respuesta</div></div>
     </div>
+    </div>
   </section>
 
   <!-- TRUST STRIP -->
@@ -285,6 +299,7 @@
 
   <!-- SERVICIOS -->
   <section id="servicios">
+    <div class="wrap">
     <span class="s-tag">Lo que hacemos</span>
     <h2 class="s-title">NUESTROS<br>SERVICIOS</h2>
     <div class="svc-grid">
@@ -319,10 +334,12 @@
         <p>¿Tu nuevo hogar aún no está listo? Resguardamos tus pertenencias en instalaciones seguras y monitoreadas.</p>
       </div>
     </div>
+    </div>
   </section>
 
   <!-- POR QUÉ NOSOTROS -->
   <section id="porque">
+    <div class="wrap">
     <span class="s-tag">Nuestra diferencia</span>
     <h2 class="s-title light">¿POR QUÉ<br>NUÑEZ?</h2>
     <div class="porque-grid">
@@ -347,10 +364,12 @@
         <p>Un ejecutivo dedicado te acompaña de principio a fin. Respondemos por WhatsApp en menos de una hora.</p>
       </div>
     </div>
+    </div>
   </section>
 
   <!-- CÓMO FUNCIONA -->
   <section id="como">
+    <div class="wrap">
     <span class="s-tag">El proceso</span>
     <h2 class="s-title">ASÍ DE<br>SENCILLO</h2>
     <div class="steps">
@@ -374,6 +393,7 @@
         <h3>ENTREGAMOS</h3>
         <p>Desarmamos, acomodamos y dejamos tu nuevo hogar tal como lo imaginaste.</p>
       </div>
+    </div>
     </div>
   </section>
 
@@ -509,6 +529,7 @@
 
   <!-- GALERÍA -->
   <section id="galeria">
+    <div class="wrap">
     <span class="s-tag" style="color:rgba(255,249,245,.4)">Nuestro trabajo</span>
     <h2 class="s-title light">EN ACCIÓN</h2>
     <div class="gal-grid">
@@ -518,10 +539,12 @@
       <div class="gal-item g4"><span>🏠</span><span class="gcap">Instalación</span></div>
       <div class="gal-item g5"><span>🛡️</span><span class="gcap">Carga segura</span></div>
     </div>
+    </div>
   </section>
 
   <!-- TESTIMONIOS -->
   <section id="testimonios">
+    <div class="wrap">
     <span class="s-tag">Lo que dicen</span>
     <h2 class="s-title">HISTORIAS<br>DE CONFIANZA</h2>
     <div class="t-grid">
@@ -545,6 +568,7 @@
         <p>"El embalaje estuvo excelente. Se tardaron en empacar pero todo llegó intacto. Mejor precio y servicio que las 3 empresas que comparé antes."</p>
         <div class="ta"><div class="av">C</div><div><div class="an">Carlos M.</div><div class="ar">Nápoles → Lomas Verdes</div></div></div>
       </div>
+    </div>
     </div>
   </section>
 
@@ -571,7 +595,7 @@
 
   <script>
     // ── CONFIG ──
-    const WA = '5215618834676';
+    const WA = '5215574047784';
 
     // ── STATE ──
     const S = {
@@ -705,5 +729,38 @@ Por favor contáctenme para confirmar. ¡Gracias!`);
 
     ui();
   </script>
+  <script>
+    function initAutocomplete() {
+      const opts = {
+        componentRestrictions: { country: 'mx' },
+        fields: ['formatted_address'],
+        types: ['geocode', 'establishment']
+      };
+
+      const acO = new google.maps.places.Autocomplete(document.getElementById('iO'), opts);
+      const acD = new google.maps.places.Autocomplete(document.getElementById('iD'), opts);
+
+      // Evitar que Enter en el autocomplete avance el formulario
+      document.getElementById('iO').addEventListener('keydown', e => { if(e.key==='Enter') e.preventDefault(); });
+      document.getElementById('iD').addEventListener('keydown', e => { if(e.key==='Enter') e.preventDefault(); });
+
+      acO.addListener('place_changed', () => {
+        const p = acO.getPlace();
+        if (p.formatted_address) {
+          document.getElementById('iO').value = p.formatted_address;
+          S.origen = p.formatted_address;
+        }
+      });
+
+      acD.addListener('place_changed', () => {
+        const p = acD.getPlace();
+        if (p.formatted_address) {
+          document.getElementById('iD').value = p.formatted_address;
+          S.destino = p.formatted_address;
+        }
+      });
+    }
+  </script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDitPFtAJh_WrpoSlPLF_zUccNrOLikx3M&libraries=places&language=es&region=MX&callback=initAutocomplete" async defer></script>
 </body>
 </html>
